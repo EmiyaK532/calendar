@@ -3,6 +3,7 @@
 
 import dayjs from "dayjs";
 import Calendar from "./components/Calendar";
+import Header from "./components/Calendar/Header";
 
 // interface CalendarProps {
 //   defaultValue?: Date;
@@ -118,6 +119,7 @@ import Calendar from "./components/Calendar";
 const App: React.FC = () => {
   return (
     <div className="App">
+      <Header></Header>
       <Calendar value={dayjs("2025-3-4")} />
     </div>
   );

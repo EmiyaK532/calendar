@@ -119,8 +119,26 @@ import Header from "./components/Calendar/Header";
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Header></Header>
-      <Calendar value={dayjs("2025-3-4")} />
+      {/* <Header></Header> */}
+      <Calendar
+        value={dayjs("2025-3-4")}
+        // className={"aaa"}
+        // style={{ background: "yellow" }}
+        dateRender={(value) => {
+          return (
+            <div>
+              <p
+                style={{
+                  background: "yellowgreen",
+                  height: "50px",
+                }}
+              >
+                {value.format("YYYY/MM/DD")}
+              </p>
+            </div>
+          );
+        }}
+      />
     </div>
   );
 };

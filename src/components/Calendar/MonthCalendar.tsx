@@ -5,6 +5,7 @@ import "./index.scss";
 export interface MonthCalendarProps extends CalendarProps {}
 
 const MonthCalendar = (props: MonthCalendarProps) => {
+  const { dateRender, dateInnerContent } = props;
   const weeekList = ["日", "一", "二", "三", "四", "五", "六"];
   const allDays = getAllDays(props.value);
 
@@ -15,7 +16,9 @@ const MonthCalendar = (props: MonthCalendarProps) => {
           return <div className="calendar-month-week-list-item">{week}</div>;
         })}
       </div>
-      <div className="calendar-month-body">{renderDays(allDays)}</div>
+      <div className="calendar-month-body">
+        {renderDays(allDays, dateRender, dateInnerContent)}
+      </div>
     </div>
   );
 };

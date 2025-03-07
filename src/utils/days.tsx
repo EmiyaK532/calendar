@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { Dayjs } from "dayjs";
+import { MonthCalendarProps } from "../components/Calendar/MonthCalendar";
 // import "../components/Calendar/index.scss";
 
 export const getAllDays = (date: Dayjs) => {
@@ -30,7 +31,9 @@ export const getAllDays = (date: Dayjs) => {
 };
 
 export const renderDays = (
-  days: Array<{ date: Dayjs; currentMonth: boolean }>
+  days: Array<{ date: Dayjs; currentMonth: boolean }>,
+  dateRender: MonthCalendarProps["dateRender"],
+  dateInnerContent: MonthCalendarProps["dateInnerContent"]
 ) => {
   const rows = [];
   for (let i = 0; i < 6; i++) {
@@ -39,18 +42,29 @@ export const renderDays = (
       const item = days[i * 7 + j];
       row[j] = (
         <div
-          //clsx改写
-          className={clsx("calendar-month-body-cell", {
-            "calendar-month-body-cell-current": item.currentMonth === true,
-          })}
+          className={
+            "calendar-month-body-cell " +
+            (item.currentMonth ? "calendar-month-body-cell-current" : "")
+          }
         >
-          {item.date.date()}
+          {dateRender ? (
+            dateRender(item.date)
+          ) : (
+            <div className="calendar-month-body-cell-date">
+              <div className="calendar-month-body-cell-date-value">
+                {item.date.date()}
+              </div>
+              <div className="calendar-month-body-cell-date-content">
+                {dateInnerContent?.(item.date)}
+              </div>
+            </div>
+          )}
         </div>
       );
     }
     rows.push(row);
   }
-  return rows.map((row) => {
-    return <div className="calendar-month-body-row">{row}</div>;
-  });
+  return rows.map((row) => (
+    <div className="calendar-month-body-row">{row}</div>
+  ));
 };

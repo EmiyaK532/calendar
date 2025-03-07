@@ -1,4 +1,6 @@
-const Header = () => {
+import { FC } from "react";
+
+const Header: FC = () => {
   return (
     <div className="calendar-header">
       <div className="calendar-header-left">

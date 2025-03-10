@@ -1,5 +1,6 @@
 .calendar {
   width: 100%;
+  height: auto;
   // height: 200px;
   // background-color: blue;
 }
@@ -35,6 +36,35 @@
       overflow: hidden;
       &-current {
         color: #000
+      }
+      &-date {
+        // cursor: pointer;
+        padding: 10px;
+        &-value {
+          width: 28px;
+          height: 28px;
+          line-height: 28px;
+          border-radius: 50%;
+          text-align: center;
+          cursor: pointer;
+          overflow: hidden;
+          &:hover {
+            background: #ccc;
+          }
+        }
+        &-selected {
+          background:skyblue;
+          width:28px;
+          height: 28px;
+          line-height: 28px;
+          text-align: center;
+          color:#fff;
+          border-radius:50%;
+          cursor:pointer;
+          &:hover {
+            background: skyblue;
+          }
+        }
       }
     }
   }

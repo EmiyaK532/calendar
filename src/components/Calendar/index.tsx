@@ -1,11 +1,12 @@
 import "./styles/index.scss";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import MonthCalendar from "./MonthCalendar";
 import { CSSProperties, ReactNode, useEffect, useState } from "react";
 import Header from "./Header";
 import cs from "classnames";
 import LocaleContext from "./localeContextType";
 import ErrorBoundary from "../ErrorBoundary";
+import LanguageSelector from "./LanguageSelector";
 
 export interface CalendarProps {
   value: Dayjs;
@@ -18,6 +19,10 @@ export interface CalendarProps {
   //国际化相关
   locale?: string;
   onChange?: (date: Dayjs) => void;
+  //是否显示语言选择器
+  showLanguageSelector?: boolean;
+  //语言变更回调
+  onLocaleChange?: (locale: string) => void;
 }
 
 const Calendar = (props: CalendarProps) => {
@@ -27,40 +32,65 @@ const Calendar = (props: CalendarProps) => {
     className,
     dateRender,
     dateInnerContent,
-    locale,
+    locale = navigator.language,
     onChange,
+    showLanguageSelector = true,
+    onLocaleChange,
   } = props;
+
   const [curValue, setCurValue] = useState<Dayjs>(value);
   const [curMonth, setCurMonth] = useState<Dayjs>(value);
+  // const [currentLocale, setCurrentLocale] = useState<string>(locale);
   const classNames = cs("calendar", className);
 
   const selectHandler = (date: Dayjs) => {
     setCurValue(date);
+    setCurMonth(date);
     onChange?.(date);
+  };
+
+  const handleLocaleChange = (newLocale: string) => {
+    // setCurrentLocale(newLocale);
+    onLocaleChange?.(newLocale);
   };
 
   return (
     <LocaleContext.Provider
       value={{
-        locale: locale || navigator.language,
+        locale: locale,
       }}
     >
       <div className={classNames} style={style}>
-        <Header
-          curMonth={curMonth}
-          prevMonthHandler={() => {
-            setCurMonth(curMonth.subtract(1, "month"));
-          }}
-          nextMonthHandler={() => {
-            setCurMonth(curMonth.add(1, "month"));
-          }}
-        ></Header>
+        <div className="calendar-header-container">
+          <Header
+            curMonth={curMonth}
+            todayHandler={() => {
+              const date = dayjs(Date.now());
+              setCurMonth(date);
+              setCurValue(date);
+              onChange?.(date);
+            }}
+            prevMonthHandler={() => {
+              setCurMonth(curMonth.subtract(1, "month"));
+            }}
+            nextMonthHandler={() => {
+              setCurMonth(curMonth.add(1, "month"));
+            }}
+          />
+          {showLanguageSelector && (
+            <LanguageSelector
+              currentLocale={locale}
+              onChange={handleLocaleChange}
+            />
+          )}
+        </div>
         <ErrorBoundary>
           <MonthCalendar
             {...props}
             value={curValue}
             curMonth={curMonth}
             selectHandler={selectHandler}
+            locale={locale}
           />
         </ErrorBoundary>
       </div>

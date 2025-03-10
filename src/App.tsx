@@ -1,15 +1,21 @@
 // import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 // import "./index.css";
 
+import React, { useState } from "react";
 import dayjs from "dayjs";
 import Calendar from "./components/Calendar";
 import Header from "./components/Calendar/Header";
+import "./App.css";
+
 const App: React.FC = () => {
+  const [date, setDate] = useState(dayjs());
+  const [locale, setLocale] = useState("zh-CN");
+
   return (
     <div className="App">
       {/* <Header></Header> */}
       <Calendar
-        value={dayjs("2025-3-4")}
+        value={date}
         dateInnerContent={(value) => {
           return (
             <div>
@@ -17,10 +23,10 @@ const App: React.FC = () => {
             </div>
           );
         }}
-        locale="jp-jp"
-        onChange={(date) => {
-          // alert(date.format("YYYY-MM-DD"));
-        }}
+        locale={locale}
+        onChange={setDate}
+        onLocaleChange={setLocale}
+        showLanguageSelector={true}
       />
     </div>
   );

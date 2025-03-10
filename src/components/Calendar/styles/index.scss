@@ -41,9 +41,9 @@
         // cursor: pointer;
         padding: 10px;
         &-value {
-          width: 28px;
-          height: 28px;
-          line-height: 28px;
+          width: 25px;
+          height: 25px;
+          line-height: 25px;
           border-radius: 50%;
           text-align: center;
           cursor: pointer;
@@ -54,13 +54,14 @@
         }
         &-selected {
           background:skyblue;
-          width:28px;
-          height: 28px;
-          line-height: 28px;
+          width:25px;
+          height: 25px;
+          line-height: 25px;
           text-align: center;
           color:#fff;
           border-radius:50%;
           cursor:pointer;
+          overflow: hidden;
           &:hover {
             background: skyblue;
           }
@@ -115,4 +116,46 @@
     margin:0 12px
   }
  }
+}
+
+// 语言选择器样式
+.calendar-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+.calendar-language-selector {
+  &-dropdown {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+    
+    &:hover {
+      border-color: #bbb;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: #1890ff;
+      box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    }
+  }
+}
+
+// 确保已选中日期的样式
+.calendar-month-body-cell-date-selected {
+  background-color: #1890ff;
+  color: white;
+  border-radius: 50%;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
 }

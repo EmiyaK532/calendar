@@ -3,7 +3,7 @@ import { CalendarType } from "./interface";
 const CalendarLocale: CalendarType = {
   formatYear: "YYYY年",
   formatMonth: "YYYY年MM月",
-  today: "今日",
+  today: "今では",
   month: {
     January: "1月",
     February: "2月",
